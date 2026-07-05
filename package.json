@@ -1,0 +1,13 @@
+{
+  "name": "adyapan-lms",
+  "version": "1.0.0",
+  "description": "Adyapan Learning Management System",
+  "scripts": {
+    "install:all": "cd server && npm install && cd ../client && npm install",
+    "seed": "cd server && node seedAdmin.js && node seedCourses.js && node seedQuizzes.js",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "build": "cd client && npm run build"
+  },
+  "private": true
+}

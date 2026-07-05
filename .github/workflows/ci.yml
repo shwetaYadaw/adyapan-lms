@@ -1,0 +1,67 @@
+name: CI — Build & Verify
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  # ── Client build check ────────────────────────────────────────────────────
+  client-build:
+    name: React Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_API_URL: https://placeholder.onrender.com/api
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: client-dist
+          path: client/dist
+
+  # ── Server syntax / load check ────────────────────────────────────────────
+  server-check:
+    name: Server Load Check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify all routes load
+        run: |
+          node -e "
+            process.env.MONGO_URI='mongodb://localhost/test';
+            process.env.JWT_SECRET='ci-test-secret';
+            process.env.CLIENT_URL='http://localhost:5173';
+            const m = require('mongoose');
+            m.connect = () => Promise.resolve();
+            require('./server.js');
+            setTimeout(() => { console.log('✅ Server loads OK'); process.exit(0); }, 800);
+          "

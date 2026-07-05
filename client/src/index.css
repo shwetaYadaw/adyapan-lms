@@ -1,0 +1,231 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Adyapan LMS  –  Global Stylesheet
+   Brand: dark bg #0f172a  ·  gold accent #f59e0b
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Reset Vite scaffold (removes 1126-px width cap + centred text) ──────── */
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  border: none;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+html { scroll-behavior: smooth; }
+
+/* ── Brand colour tokens ─────────────────────────────────────────────────── */
+:root {
+  --ady-dark:   #0f172a;
+  --ady-navy:   #1e293b;
+  --ady-gold:   #f59e0b;
+  --ady-orange: #fb923c;
+  --ady-radius: 12px;
+}
+
+/* ── Bootstrap btn overrides ─────────────────────────────────────────────── */
+.btn-warning        { background: var(--ady-gold); border-color: var(--ady-gold); color: #0f172a; font-weight: 600; }
+.btn-warning:hover  { background: #d97706; border-color: #d97706; color: #fff; }
+.badge.bg-warning   { color: #0f172a !important; }
+
+/* ── Custom scrollbar ────────────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 5px; height: 5px; }
+::-webkit-scrollbar-track  { background: #0f172a; }
+::-webkit-scrollbar-thumb  { background: #334155; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+
+/* ── Progress bar smooth transition ─────────────────────────────────────── */
+.progress-bar { transition: width .6s ease; }
+
+/* ── Homepage: numbered feature cards ───────────────────────────────────── */
+.feature-card {
+  background: var(--ady-gold);
+  border-radius: var(--ady-radius);
+  padding: 28px 22px;
+  color: #0f172a;
+  transition: transform .2s, box-shadow .2s;
+  height: 100%;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 36px rgba(245,158,11,.35);
+}
+.feature-card .num {
+  font-size: 2.8rem;
+  font-weight: 900;
+  opacity: .28;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.feature-card .feat-title {
+  font-size: .95rem;
+  font-weight: 700;
+}
+
+/* ── Ticker marquee ──────────────────────────────────────────────────────── */
+.ticker-wrap {
+  overflow: hidden;
+  background: var(--ady-gold);
+  padding: 10px 0;
+  white-space: nowrap;
+  user-select: none;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: ticker 32s linear infinite;
+  font-weight: 700;
+  font-size: .88rem;
+  letter-spacing: .08em;
+  color: #0f172a;
+  padding-right: 40px;
+}
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Certificate cards ───────────────────────────────────────────────────── */
+.cert-card {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+  border-radius: var(--ady-radius);
+  border: 2px solid var(--ady-gold) !important;
+  color: #fff;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+}
+.cert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(245,158,11,.28);
+}
+.cert-card .cert-ribbon {
+  background: var(--ady-gold);
+  color: #0f172a;
+  font-weight: 700;
+  font-size: .72rem;
+  padding: 5px 14px;
+  letter-spacing: .1em;
+  text-align: center;
+}
+.cert-card .cert-icon  { font-size: 3.2rem; text-align: center; }
+.cert-card .cert-title { font-weight: 700; font-size: 1.05rem; color: #fff; text-align: center; }
+.cert-card .cert-meta  { color: #94a3b8; font-size: .8rem; }
+.cert-card .cert-id    { font-family: monospace; color: #fcd34d; font-size: .75rem; }
+
+/* ── Lesson sidebar ──────────────────────────────────────────────────────── */
+.lesson-sidebar {
+  background: #0b1120;
+  min-height: calc(100vh - 56px);
+  overflow-y: auto;
+  max-height: calc(100vh - 56px);
+}
+.lesson-btn {
+  background: transparent;
+  border: none;
+  border-left: 3px solid transparent;
+  color: #64748b;
+  text-align: left;
+  padding: 10px 14px;
+  width: 100%;
+  font-size: .84rem;
+  transition: all .15s;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.lesson-btn:hover  { background: rgba(255,255,255,.04); color: #e2e8f0; }
+.lesson-btn.active { background: rgba(245,158,11,.1); color: #f59e0b; border-left-color: #f59e0b; font-weight: 600; }
+.lesson-btn.done   { color: #4ade80; }
+
+/* ── Fade-in page animation ──────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeUp .3s ease-out both; }
+
+/* ── Gradient gold text ──────────────────────────────────────────────────── */
+.text-gold { color: var(--ady-gold) !important; }
+.text-gradient-gold {
+  background: linear-gradient(90deg, #f59e0b, #fb923c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Course card progress bars (My Courses) ──────────────────────────────── */
+.course-card-progress .progress { height: 6px; border-radius: 3px; background: #e2e8f0; }
+.course-card-progress .progress-bar         { background: var(--ady-gold); }
+.course-card-progress .progress-bar.complete { background: #22c55e; }
+
+/* ── Admin table headings ────────────────────────────────────────────────── */
+.table-dark-ady thead th {
+  background: #1e293b;
+  color: #94a3b8;
+  font-weight: 600;
+  font-size: .8rem;
+  border-bottom: none;
+}
+
+/* ── Progress bars on WHITE backgrounds (course cards, dashboard) ─────────── */
+/* These override Bootstrap's faint grey with a clearly visible slate track */
+.progress-light {
+  background: #cbd5e1 !important;   /* slate-300 — visible on white */
+  border: 1px solid #94a3b8;
+  border-radius: 99px;
+  height: 10px;
+  overflow: hidden;
+}
+.progress-light .progress-bar {
+  border-radius: 99px;
+  transition: width .6s ease;
+}
+.progress-light .progress-bar-gold    { background: linear-gradient(90deg,#d97706,#f59e0b); }
+.progress-light .progress-bar-green   { background: linear-gradient(90deg,#16a34a,#22c55e); }
+
+/* ── Bootstrap table dark override ───────────────────────────────────────── */
+/* Prevents Bootstrap's default white-bg / dark-text from bleeding into dark pages */
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-color: #e2e8f0;
+  --bs-table-border-color: #1e293b;
+  --bs-table-hover-bg: rgba(255,255,255,.03);
+  --bs-table-hover-color: #e2e8f0;
+  color: #e2e8f0;
+}
+.table td, .table th { border-color: #1e293b; }
+.table tbody tr { color: #e2e8f0; }
+
+/* ── Bootstrap form-control dark override (used inside admin) ────────────── */
+.form-control::placeholder { color: #475569; }
+.form-control:focus {
+  box-shadow: 0 0 0 3px rgba(245,158,11,.25);
+  border-color: #f59e0b !important;
+}
+.form-select:focus {
+  box-shadow: 0 0 0 3px rgba(245,158,11,.25);
+  border-color: #f59e0b !important;
+}
+
+/* ── Responsive utility ──────────────────────────────────────────────────── */
+.min-w-0 { min-width: 0; }
+
+/* ── Card hover lift for light pages ────────────────────────────────────── */
+.card-lift {
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(0,0,0,.1) !important;
+}
