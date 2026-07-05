@@ -21,6 +21,9 @@ const adminRoutes       = require("./routes/adminRoutes");
 const app = express();
 const isProd = process.env.NODE_ENV === "production";
 
+// ── Trust proxy (required on Render/Heroku) ───────────────────────────────────
+app.set("trust proxy", 1);
+
 // ── Security headers ──────────────────────────────────────────────────────────
 app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
 
@@ -47,8 +50,9 @@ app.use("/api/auth/login",    authLimiter);
 app.use("/api/auth/register", authLimiter);
 
 // ── CORS ──────────────────────────────────────────────────────────────────────
+const allowedOrigin = (process.env.CLIENT_URL || "http://localhost:5173").trim();
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  origin: allowedOrigin,
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
