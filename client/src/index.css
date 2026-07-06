@@ -1,7 +1,367 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   Adyapan LMS  –  Global Stylesheet
+   Adyapan LMS  –  Global Stylesheet  (Mobile-First)
    Brand: dark bg #0f172a  ·  gold accent #f59e0b
    ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Viewport meta is in index.html – ensure it exists ──────────────────── */
+
+/* ── Reset Vite scaffold ─────────────────────────────────────────────────── */
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  border: none;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
+  /* Prevent horizontal overflow on mobile */
+  overflow-x: hidden;
+}
+
+html { scroll-behavior: smooth; }
+
+/* ── Brand colour tokens ─────────────────────────────────────────────────── */
+:root {
+  --ady-dark:   #0f172a;
+  --ady-navy:   #1e293b;
+  --ady-gold:   #f59e0b;
+  --ady-orange: #fb923c;
+  --ady-radius: 12px;
+}
+
+/* ── Bootstrap btn overrides ─────────────────────────────────────────────── */
+.btn-warning        { background: var(--ady-gold); border-color: var(--ady-gold); color: #0f172a; font-weight: 600; }
+.btn-warning:hover  { background: #d97706; border-color: #d97706; color: #fff; }
+.badge.bg-warning   { color: #0f172a !important; }
+
+/* ── Custom scrollbar ────────────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 5px; height: 5px; }
+::-webkit-scrollbar-track  { background: #0f172a; }
+::-webkit-scrollbar-thumb  { background: #334155; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+
+/* ── Progress bar smooth transition ─────────────────────────────────────── */
+.progress-bar { transition: width .6s ease; }
+
+/* ── Homepage: numbered feature cards ───────────────────────────────────── */
+.feature-card {
+  background: var(--ady-gold);
+  border-radius: var(--ady-radius);
+  padding: 24px 20px;
+  color: #0f172a;
+  transition: transform .2s, box-shadow .2s;
+  height: 100%;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 36px rgba(245,158,11,.35);
+}
+.feature-card .num {
+  font-size: 2.4rem;
+  font-weight: 900;
+  opacity: .28;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.feature-card .feat-title {
+  font-size: .9rem;
+  font-weight: 700;
+}
+
+/* ── Ticker marquee ──────────────────────────────────────────────────────── */
+.ticker-wrap {
+  overflow: hidden;
+  background: var(--ady-gold);
+  padding: 10px 0;
+  white-space: nowrap;
+  user-select: none;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: ticker 32s linear infinite;
+  font-weight: 700;
+  font-size: .85rem;
+  letter-spacing: .08em;
+  color: #0f172a;
+  padding-right: 40px;
+}
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Certificate cards ───────────────────────────────────────────────────── */
+.cert-card {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+  border-radius: var(--ady-radius);
+  border: 2px solid var(--ady-gold) !important;
+  color: #fff;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+}
+.cert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(245,158,11,.28);
+}
+.cert-card .cert-ribbon {
+  background: var(--ady-gold);
+  color: #0f172a;
+  font-weight: 700;
+  font-size: .72rem;
+  padding: 5px 14px;
+  letter-spacing: .1em;
+  text-align: center;
+}
+.cert-card .cert-icon  { font-size: 3.2rem; text-align: center; }
+.cert-card .cert-title { font-weight: 700; font-size: 1.05rem; color: #fff; text-align: center; }
+.cert-card .cert-meta  { color: #94a3b8; font-size: .8rem; }
+.cert-card .cert-id    { font-family: monospace; color: #fcd34d; font-size: .75rem; }
+
+/* ── Lesson sidebar ──────────────────────────────────────────────────────── */
+.lesson-sidebar {
+  background: #0b1120;
+  min-height: calc(100vh - 56px);
+  overflow-y: auto;
+  max-height: calc(100vh - 56px);
+}
+.lesson-btn {
+  background: transparent;
+  border: none;
+  border-left: 3px solid transparent;
+  color: #64748b;
+  text-align: left;
+  padding: 10px 14px;
+  width: 100%;
+  font-size: .84rem;
+  transition: all .15s;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.lesson-btn:hover  { background: rgba(255,255,255,.04); color: #e2e8f0; }
+.lesson-btn.active { background: rgba(245,158,11,.1); color: #f59e0b; border-left-color: #f59e0b; font-weight: 600; }
+.lesson-btn.done   { color: #4ade80; }
+
+/* ── Fade-in page animation ──────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeUp .3s ease-out both; }
+
+/* ── Gradient gold text ──────────────────────────────────────────────────── */
+.text-gold { color: var(--ady-gold) !important; }
+.text-gradient-gold {
+  background: linear-gradient(90deg, #f59e0b, #fb923c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Course card progress bars ──────────────────────────────────────────── */
+.course-card-progress .progress { height: 6px; border-radius: 3px; background: #e2e8f0; }
+.course-card-progress .progress-bar         { background: var(--ady-gold); }
+.course-card-progress .progress-bar.complete { background: #22c55e; }
+
+/* ── Progress bars on WHITE backgrounds ─────────────────────────────────── */
+.progress-light {
+  background: #cbd5e1 !important;
+  border: 1px solid #94a3b8;
+  border-radius: 99px;
+  height: 10px;
+  overflow: hidden;
+}
+.progress-light .progress-bar { border-radius: 99px; transition: width .6s ease; }
+.progress-light .progress-bar-gold  { background: linear-gradient(90deg,#d97706,#f59e0b); }
+.progress-light .progress-bar-green { background: linear-gradient(90deg,#16a34a,#22c55e); }
+
+/* ── Bootstrap table dark override ───────────────────────────────────────── */
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-color: #e2e8f0;
+  --bs-table-border-color: #1e293b;
+  --bs-table-hover-bg: rgba(255,255,255,.03);
+  --bs-table-hover-color: #e2e8f0;
+  color: #e2e8f0;
+}
+.table td, .table th { border-color: #1e293b; }
+.table tbody tr { color: #e2e8f0; }
+
+/* ── Bootstrap form-control dark override ───────────────────────────────── */
+.form-control::placeholder { color: #475569; }
+.form-control:focus {
+  box-shadow: 0 0 0 3px rgba(245,158,11,.25);
+  border-color: #f59e0b !important;
+}
+.form-select:focus {
+  box-shadow: 0 0 0 3px rgba(245,158,11,.25);
+  border-color: #f59e0b !important;
+}
+
+/* ── Responsive utilities ────────────────────────────────────────────────── */
+.min-w-0 { min-width: 0; }
+
+/* ── Card hover lift ─────────────────────────────────────────────────────── */
+.card-lift { transition: transform .2s ease, box-shadow .2s ease; }
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(0,0,0,.1) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE OVERRIDES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Navbar mobile toggler ───────────────────────────────────────────────── */
+.navbar-toggler { border: none !important; outline: none !important; box-shadow: none !important; }
+.navbar-toggler-icon { filter: invert(1); }
+
+/* Mobile navbar dropdown background */
+@media (max-width: 991.98px) {
+  #navMain {
+    background: #0f172a;
+    padding: 12px 0 16px;
+    border-top: 1px solid #1e293b;
+  }
+  #navMain .navbar-nav { gap: 4px !important; }
+  #navMain .nav-link   { padding: 10px 16px !important; border-radius: 8px; }
+  #navMain .btn        { width: 100%; text-align: center; margin: 4px 0; }
+  #navMain .dropdown-menu {
+    position: static !important;
+    transform: none !important;
+    width: 100%;
+    margin-top: 4px;
+  }
+}
+
+/* ── Hero section mobile ─────────────────────────────────────────────────── */
+@media (max-width: 767.98px) {
+  .hero-section { min-height: auto !important; padding: 40px 0 32px !important; }
+  .hero-section h1 { font-size: 2rem !important; }
+  .hero-section .lead { font-size: 1rem !important; }
+  .hero-section .btn-lg { padding: 10px 24px !important; font-size: .95rem !important; }
+}
+
+/* ── Feature cards — 2 columns on mobile ───────────────────────────────── */
+@media (max-width: 575.98px) {
+  .feature-card { padding: 20px 16px; }
+  .feature-card .num { font-size: 2rem; }
+  .feature-card .feat-title { font-size: .85rem; }
+}
+
+/* ── Course grid — 1 column on phones ───────────────────────────────────── */
+@media (max-width: 575.98px) {
+  .row-cols-1 > * { flex: 0 0 100%; max-width: 100%; }
+}
+
+/* ── Dashboard stat cards — 2 per row on mobile ─────────────────────────── */
+@media (max-width: 575.98px) {
+  .col-sm-6.col-xl-3 { flex: 0 0 50%; max-width: 50%; }
+}
+
+/* ── Lesson page mobile ──────────────────────────────────────────────────── */
+/* Sidebar hidden on mobile — lesson list shown inline below video */
+@media (max-width: 991.98px) {
+  .lesson-sidebar { display: none !important; }
+}
+
+/* Video responsive height on mobile */
+@media (max-width: 767.98px) {
+  video, iframe { max-height: 240px !important; }
+}
+
+/* ── Admin pages mobile ──────────────────────────────────────────────────── */
+/* Admin sidebar collapses to top bar on mobile */
+@media (max-width: 767.98px) {
+  /* Stack sidebar above main content */
+  .d-flex.admin-layout,
+  .d-flex[style*="min-height: calc(100vh - 56px)"] {
+    flex-direction: column !important;
+  }
+  /* Admin sidebar becomes horizontal scrollable top bar */
+  aside[style*="min-width: 220px"],
+  aside.d-flex.flex-column[style*="min-width"] {
+    min-width: 100% !important;
+    min-height: auto !important;
+    flex-direction: row !important;
+    overflow-x: auto;
+    padding: 8px 12px !important;
+    border-right: none !important;
+    border-bottom: 1px solid #1e293b !important;
+  }
+  aside[style*="min-width: 220px"] nav,
+  aside.d-flex.flex-column[style*="min-width"] nav {
+    flex-direction: row !important;
+    gap: 4px !important;
+    flex-wrap: nowrap;
+  }
+  aside[style*="min-width: 220px"] p,
+  aside.d-flex.flex-column[style*="min-width"] p {
+    display: none !important; /* hide "Admin Panel" label on mobile */
+  }
+  /* Admin tables — horizontal scroll */
+  .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
+/* ── Profile page mobile ─────────────────────────────────────────────────── */
+@media (max-width: 575.98px) {
+  .container[style*="max-width: 700px"] { padding: 0 16px !important; }
+}
+
+/* ── My Courses tabs — scroll on mobile ─────────────────────────────────── */
+@media (max-width: 575.98px) {
+  .d-flex.gap-2 { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+  .d-flex.gap-2 .btn { white-space: nowrap; flex-shrink: 0; }
+}
+
+/* ── Certificates grid — 1 col on phone ─────────────────────────────────── */
+@media (max-width: 575.98px) {
+  .cert-card { margin-bottom: 16px; }
+}
+
+/* ── Quiz page mobile ────────────────────────────────────────────────────── */
+@media (max-width: 767.98px) {
+  .container[style*="max-width: 820px"] { padding: 0 12px !important; }
+}
+
+/* ── Footer mobile ───────────────────────────────────────────────────────── */
+@media (max-width: 767.98px) {
+  footer .row.g-4 > div { margin-bottom: 24px; }
+}
+
+/* ── Buttons full width on small screens where needed ───────────────────── */
+@media (max-width: 400px) {
+  .btn-lg { padding: 10px 20px !important; font-size: .9rem !important; }
+  h1.display-4 { font-size: 1.75rem !important; }
+  h2 { font-size: 1.4rem !important; }
+}
+
+/* ── MyCourses card — prevent overflow ──────────────────────────────────── */
+@media (max-width: 575.98px) {
+  [style*="height: 160px"] { height: 140px !important; }
+}
+
+/* ── Admin table on mobile — card view ──────────────────────────────────── */
+@media (max-width: 575.98px) {
+  .rounded-3.overflow-hidden table { font-size: .75rem; }
+  .rounded-3.overflow-hidden table td, 
+  .rounded-3.overflow-hidden table th { padding: 8px 10px !important; }
+}
+
+/* ── Smooth touch scrolling everywhere ──────────────────────────────────── */
+* { -webkit-tap-highlight-color: transparent; }
+button, a { touch-action: manipulation; }
+
 
 /* ── Reset Vite scaffold (removes 1126-px width cap + centred text) ──────── */
 #root {

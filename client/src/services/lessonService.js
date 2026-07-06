@@ -1,7 +1,5 @@
 import API from "../api/axios";
 
-// Get all lessons of a course
-export const getLessons = async (courseId) => {
-  const res = await API.get(`/lessons/${courseId}`);
-  return res.data;
-};
+// Get all lessons of a course — returns { lessons, modules }
+export const getLessons = (courseId) =>
+  API.get(`/lessons/${courseId}`).then((r) => r.data);
