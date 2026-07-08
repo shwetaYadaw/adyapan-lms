@@ -82,6 +82,7 @@ const getAllUsers = async (req, res) => {
   try {
     const { search = "", page = 1, limit = 20 } = req.query;
 
+    // Search across ALL users (admin can see everyone)
     const query = search
       ? {
           $or: [
